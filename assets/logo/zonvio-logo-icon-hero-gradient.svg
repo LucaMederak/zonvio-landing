@@ -1,0 +1,15 @@
+<svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <mask id="zonvio-hero-mask" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="140" height="140">
+    <circle cx="70" cy="70" r="70" fill="white"/>
+  </mask>
+  <g mask="url(#zonvio-hero-mask)">
+    <circle cx="70" cy="70" r="71" fill="url(#zonvio-hero-gradient)"/>
+    <path d="M112.026 45.4832L54.9357 172L36.3813 153.451L64.9265 92.5703L3.55437 120.632L-15 102.083L112.026 45.4832Z" fill="white"/>
+  </g>
+  <defs>
+    <linearGradient id="zonvio-hero-gradient" x1="15" y1="20" x2="125" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7C3AED"/>
+      <stop offset="1" stop-color="#0EA5E9"/>
+    </linearGradient>
+  </defs>
+</svg>

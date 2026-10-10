@@ -1,0 +1,29 @@
+{
+  "name": "zonvio-landing",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "framer-motion": "^11.15.0",
+    "lucide-react": "^0.468.0",
+    "next": "16.4.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+    ,"react-scroll": "^1.9.0"
+    ,"tailwind-merge": "^3.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.14",
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/react-scroll": "^1.8.10",
+    "tailwindcss": "^4.1.14",
+    "typescript": "^5"
+  }
+}

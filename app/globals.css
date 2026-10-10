@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+:root { color-scheme: light; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  color: #0f172a;
+  background: #fff;
+  font-family: var(--font-figtree), Figtree, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.landing-container { width: min(1160px, calc(100% - 40px)); margin-inline: auto; }
+.landing-header { position: absolute; inset: 0 0 auto; z-index: 50; padding: 24px 0; }
+.landing-header-inner, .landing-footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.landing-brand, .landing-footer-brand { display: flex; align-items: center; gap: 10px; font-size: 21px; font-weight: 800; letter-spacing: -.04em; }
+
+.landing-header-cta {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 19px;
+  border: 1px solid rgba(116, 87, 232, .15);
+  border-radius: 999px;
+  background: rgba(255,255,255,.72);
+  box-shadow: 0 10px 35px rgba(46, 34, 96, .06);
+  backdrop-filter: blur(12px);
+  font-size: 13px;
+  font-weight: 700;
+  transition: transform .2s ease, border-color .2s ease;
+}
+
+.landing-header-cta:hover { transform: translateY(-2px); border-color: rgba(116, 87, 232, .35); }
+.landing-footer { border-top: 1px solid #1e293b; background: #020617; color: #fff; padding: 28px 0; }
+.landing-footer-brand { font-size: 17px; }
+.landing-footer-brand img { filter: brightness(0) invert(1); }
+.landing-footer p { margin: 0; color: #94a3b8; font-size: 12px; }
+
+@media (max-width: 560px) {
+  .landing-container { width: min(100% - 28px, 1160px); }
+  .landing-header { padding-top: 18px; }
+  .landing-brand span { display: none; }
+  .landing-header-cta { min-height: 38px; padding-inline: 15px; }
+  .landing-footer-inner { align-items: flex-start; flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; }
+}
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
