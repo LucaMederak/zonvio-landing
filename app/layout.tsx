@@ -12,8 +12,8 @@ const figtree = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Zonvio 2.0 — landing page",
-  description: "Minimalny szablon landing page'a Zonvio 2.0.",
+  title: "Zonvio Teleprompter",
+  description: "Teleprompter online z regulacją tempa, rozmiaru i orientacji tekstu.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
