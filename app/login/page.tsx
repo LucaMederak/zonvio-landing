@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import LoginForm from "@/components/LoginForm";
@@ -22,6 +23,10 @@ export default async function LoginPage() {
         <h1 className="mt-8 text-3xl font-bold tracking-tight">Zaloguj się</h1>
         <p className="mt-2 text-sm leading-6 text-slate-400">Wpisz email i hasło przypisane do Twojego konta.</p>
         <LoginForm />
+        <p className="mt-6 text-center text-sm text-slate-400">
+          Nie masz konta?{" "}
+          <Link href="/register" className="font-semibold text-violet-300 transition hover:text-violet-200">Zarejestruj się</Link>
+        </p>
       </section>
     </main>
   );

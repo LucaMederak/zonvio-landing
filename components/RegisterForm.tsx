@@ -1,0 +1,111 @@
+"use client";
+
+import { useState, type FormEvent } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { registerUser } from "@/app/register/actions";
+
+export default function RegisterForm() {
+  const router = useRouter();
+  const [error, setError] = useState("");
+  const [pending, setPending] = useState(false);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setError("");
+    setPending(true);
+
+    const formData = new FormData(event.currentTarget);
+    const email = String(formData.get("email") ?? "");
+    const password = String(formData.get("password") ?? "");
+    const passwordConfirmation = String(formData.get("passwordConfirmation") ?? "");
+
+    if (password !== passwordConfirmation) {
+      setError("Hasła nie są takie same.");
+      setPending(false);
+      return;
+    }
+
+    if (password.length < 12) {
+      setError("Hasło musi mieć co najmniej 12 znaków.");
+      setPending(false);
+      return;
+    }
+
+    try {
+      const result = await registerUser({ email, password, passwordConfirmation });
+      if (!result.success) {
+        setError(result.error === "emailTaken" ? "Konto z tym adresem email już istnieje." : "Sprawdź poprawność wpisanych danych.");
+        return;
+      }
+
+      const loginResult = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+
+      if (loginResult?.error) {
+        router.push("/login?registered=1");
+        return;
+      }
+
+      router.push("/dashboard");
+      router.refresh();
+    } catch {
+      setError("Nie udało się utworzyć konta. Spróbuj ponownie.");
+    } finally {
+      setPending(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+      <label className="block">
+        <span className="mb-2 block text-sm font-semibold text-slate-300">Email</span>
+        <input
+          name="email"
+          type="email"
+          autoComplete="email"
+          required
+          className="h-12 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 text-white outline-none transition placeholder:text-slate-600 focus:border-violet-400 focus:ring-4 focus:ring-violet-500/10"
+          placeholder="ty@example.com"
+        />
+      </label>
+      <label className="block">
+        <span className="mb-2 block text-sm font-semibold text-slate-300">Hasło</span>
+        <input
+          name="password"
+          type="password"
+          autoComplete="new-password"
+          minLength={12}
+          maxLength={128}
+          required
+          className="h-12 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 text-white outline-none transition placeholder:text-slate-600 focus:border-violet-400 focus:ring-4 focus:ring-violet-500/10"
+          placeholder="Minimum 12 znaków"
+        />
+      </label>
+      <label className="block">
+        <span className="mb-2 block text-sm font-semibold text-slate-300">Powtórz hasło</span>
+        <input
+          name="passwordConfirmation"
+          type="password"
+          autoComplete="new-password"
+          minLength={12}
+          maxLength={128}
+          required
+          className="h-12 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 text-white outline-none transition placeholder:text-slate-600 focus:border-violet-400 focus:ring-4 focus:ring-violet-500/10"
+          placeholder="Powtórz hasło"
+        />
+      </label>
+      {error ? <p role="alert" className="text-sm font-medium text-rose-400">{error}</p> : null}
+      <button
+        type="submit"
+        disabled={pending}
+        className="flex h-12 w-full items-center justify-center rounded-2xl bg-violet-600 px-5 text-sm font-bold text-white transition hover:bg-violet-500 disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        {pending ? "Tworzenie konta…" : "Utwórz konto"}
+      </button>
+    </form>
+  );
+}
