@@ -7,7 +7,7 @@ import { db } from "@/lib/db";
 
 const registrationSchema = z.object({
   email: z.string().trim().email().transform((value) => value.toLowerCase()),
-  password: z.string().min(1).max(9),
+  password: z.string().min(9).max(128),
   passwordConfirmation: z.string(),
 }).refine((data) => data.password === data.passwordConfirmation, {
   path: ["passwordConfirmation"],

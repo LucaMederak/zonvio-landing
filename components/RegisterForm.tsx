@@ -26,8 +26,8 @@ export default function RegisterForm() {
       return;
     }
 
-    if (password.length > 9) {
-      setError("Hasło może mieć maksymalnie 9 znaków.");
+    if (password.length < 9) {
+      setError("Hasło musi mieć co najmniej 9 znaków.");
       setPending(false);
       return;
     }
@@ -78,11 +78,11 @@ export default function RegisterForm() {
           name="password"
           type="password"
           autoComplete="new-password"
-          minLength={1}
-          maxLength={9}
+          minLength={9}
+          maxLength={128}
           required
           className="h-12 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 text-white outline-none transition placeholder:text-slate-600 focus:border-violet-400 focus:ring-4 focus:ring-violet-500/10"
-          placeholder="Maksymalnie 9 znaków"
+          placeholder="Minimum 9 znaków"
         />
       </label>
       <label className="block">
@@ -91,8 +91,8 @@ export default function RegisterForm() {
           name="passwordConfirmation"
           type="password"
           autoComplete="new-password"
-          minLength={1}
-          maxLength={9}
+          minLength={9}
+          maxLength={128}
           required
           className="h-12 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 text-white outline-none transition placeholder:text-slate-600 focus:border-violet-400 focus:ring-4 focus:ring-violet-500/10"
           placeholder="Powtórz hasło"
