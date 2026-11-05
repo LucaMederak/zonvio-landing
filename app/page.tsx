@@ -1,5 +1,5 @@
-import TeleprompterStudio from "@/components/TeleprompterStudio";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return <TeleprompterStudio />;
+  redirect("/dashboard");
 }

@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  String               @id @default(cuid())
+  email               String               @unique
+  passwordHash        String
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  scripts             Script[]
+  teleprompterSession TeleprompterSession?
+}
+
+model Script {
+  id                   String                @id @default(cuid())
+  title                String
+  content              String                @db.Text
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  userId               String
+  user                 User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  teleprompterSessions TeleprompterSession[]
+
+  @@index([userId, updatedAt])
+}
+
+model TeleprompterSession {
+  id               String   @id @default(cuid())
+  publicId         String   @unique
+  active           Boolean  @default(true)
+  isPlaying        Boolean  @default(false)
+  position         Float    @default(0)
+  speed            Float    @default(36)
+  fontSize         Int      @default(54)
+  rotation         Int      @default(0)
+  mirrorHorizontal Boolean  @default(false)
+  mirrorVertical   Boolean  @default(false)
+  alignment        String   @default("left")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  expiresAt        DateTime
+  userId           String   @unique
+  scriptId         String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  script           Script   @relation(fields: [scriptId], references: [id], onDelete: Cascade)
+
+  @@index([publicId, active])
+}

@@ -1,0 +1,14 @@
+services:
+  db:
+    image: postgres:16-alpine
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: zonvio-teleprompter
+      POSTGRES_USER: postgres-user
+      POSTGRES_PASSWORD: postgres-password
+    volumes:
+      - zonvio_teleprompter_postgres:/var/lib/postgresql/data
+
+volumes:
+  zonvio_teleprompter_postgres:
